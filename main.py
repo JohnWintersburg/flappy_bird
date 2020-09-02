@@ -1,0 +1,26 @@
+import tkinter
+import random
+import threading
+window = tkinter.Tk()
+window.title("Flappy bird")
+window.geometry("500x500")
+def play():
+    threading.Timer(0.01, play).start()
+    canvas.move(a, -1, 0)
+    canvas.move(b, -1, 0)
+    canvas.move(c, -1, 0)
+    canvas.move(d, -1, 0)
+    canvas.move(e, -1, 0)
+    canvas.move(f, -1, 0)
+canvas = tkinter.Canvas(window, width=400, height=450, bg='white')
+canvas.pack()
+a = canvas.create_line(300, 450, 300, 340)
+b = canvas.create_line(380, 450, 380, 340)
+c = canvas.create_line(300, 340, 380, 340)
+d = canvas.create_line(300, 270, 300, 0)
+e = canvas.create_line(380, 270, 380, 0)
+f = canvas.create_line(300, 270, 380, 270)
+btn = tkinter.Button(window, text="Play", command = play)
+btn.pack()
+window.mainloop()
+change()
