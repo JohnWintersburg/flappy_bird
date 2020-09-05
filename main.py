@@ -6,17 +6,21 @@ window.title("Flappy bird")
 window.geometry("500x500")
 canvas = tkinter.Canvas(window, width=400, height=450, bg='white')
 canvas.pack()
+score = tkinter.Label(window, text = "0")
+score.place(x=250, y=60)
+global launch
+launch = 'false'
 global first_right_col_x
 first_right_col_x = 380
 global second_right_col_x
 second_right_col_x = 580
-firsty = random.randint(80,420)
+firsty = random.randint(150,420)
 firsty1 = firsty-120
-secondy = random.randint(80,420)
+secondy = random.randint(150,420)
 secondy1 = secondy-120
 a = canvas.create_line(300, 450, 300, firsty)
 b = canvas.create_line(first_right_col_x, 450, first_right_col_x, firsty)
-c = canvas.create_line(300, firsty, 380, firsty) 
+c = canvas.create_line(300, firsty, 380, firsty)
 d = canvas.create_line(300, firsty1, 300, 0)
 e = canvas.create_line(380, firsty1, 380, 0)
 f = canvas.create_line(300, firsty1, 380, firsty1)
@@ -48,6 +52,17 @@ def play():
     canvas.move(k, -1, 0)
     canvas.move(l, -1, 0)
     canvas.move(bird, 0, +2)
+    bposition = 22
+    poneposition = first_right_col_x-40
+    psecondposition = second_right_col_x-40
+    if bposition == poneposition:
+        score_count = score['text']
+        score_count= int(score_count)+1
+        score.configure(text = score_count)
+    if bposition == psecondposition:
+        score_count = score['text']
+        score_count= int(score_count)+1
+        score.configure(text = score_count)
     if first_right_col_x == 0:
         first_right_col_x = 500
         firsty = random.randint(150,420)
@@ -70,7 +85,12 @@ def play():
         canvas.coords(l, 420, secondy1, 500, secondy1)
 def fly():
     canvas.move(bird, 0, -60)
-btn = tkinter.Button(window, text="Play", command = play)
+def launch_game():
+    global launch
+    if launch == 'false':
+        launch = 'true'
+        play()
+btn = tkinter.Button(window, text="Play", command = launch_game)
 flying = tkinter.Button(window, text="fly", command = fly)
 btn.pack()
 flying.pack()
